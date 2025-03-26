@@ -18,6 +18,8 @@ from vertexai.generative_models import GenerativeModel
 import textwrap
 from google.oauth2 import service_account
 import json
+from google.oauth2.service_account import Credentials
+
 
 #load config
 # config = configparser.ConfigParser()
@@ -33,14 +35,20 @@ import google.auth
 #     """Load Google credentials using Application Default Credentials (ADC)."""
 #     credentials, project = google.auth.default()
 #     return credentials
-def get_credentials():
- # For GitHub Actions - load from environment secret
- credentials_info = json.loads(os.environ['GOOGLE_CREDENTIALS'])
- return service_account.Credentials.from_service_account_info(credentials_info)
+# def get_credentials():
+#  # For GitHub Actions - load from environment secret
+#  credentials_info = json.loads(os.environ['GOOGLE_CREDENTIALS'])
+#  return service_account.Credentials.from_service_account_info(credentials_info)
 # Initialize Vertex AI with the credentials
 
-credentials = get_credentials()
-  
+
+
+credentials_data = json.loads(os.getenv("GOOGLE_CREDENTIALS"))
+
+# Create credentials object
+#Credentials.from_service_account_info(credentials_data)
+credentials = service_account.Credentials.from_service_account_info(credentials_data)
+
 
 class Solution():
     """
@@ -88,7 +96,7 @@ class Solution():
 
         # Example Graph Requirement (you might need to update this with your constants module)
         graph_requirement = constants.graph_requirement.copy()
-        graph_requirement.append(f"Save the network into GraphML format, save it at: {self.graph_file}")
+        # graph_requirement.append(f"Save the network into GraphML format, save it at: {self.graph_file}")
         graph_requirement_str =  '\n'.join([f"{idx + 1}. {line}" for idx, line in enumerate(graph_requirement)])
         
         graph_prompt = f'Your role: {self.role} \n\n' + \

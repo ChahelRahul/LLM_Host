@@ -31,3 +31,10 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./llm-geo-frontend/dist  # ✅ built files path
+  
+      # - name: Send Request to Heroku App
+      #   run: |
+      #     echo "Sending POST request to Heroku app..."
+      #     curl -X POST https://dry-garden-99647-4f7890081fda.herokuapp.com/process \
+      #       -H "Content-Type: application/json" \
+      #       -d '{"task": "Sample Task", "task_name": "example_task"}' 

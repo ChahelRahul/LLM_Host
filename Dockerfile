@@ -11,8 +11,8 @@ COPY . .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Expose the port Cloud Run will listen on
-ENV PORT=8080
+# ENV PORT=8080
 EXPOSE 8080
 
 # Run the application
-CMD ["gunicorn", "-b", "0.0.0.0:8080", "main:app"]
+CMD ["gunicorn", "-b", "0.0.0.0:8080", "app:app"]
